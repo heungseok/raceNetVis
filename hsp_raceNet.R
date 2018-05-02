@@ -1,10 +1,16 @@
-##################### original ###
+# library 
+library(igraph)
+library(plyr)
 
-# Sociogram
+# data
+load("./raceNetVisData.Rdata")
 
+# pdf
 pdf("raceNet_043018.pdf",width=15,height=18.0)
 
-library(igraph)
+##################### original ###############
+
+# Sociogram
 mat = cbind(soc[,c("driver1_id", "driver2_id", "streq", "collmean")])
 str(mat)
 
@@ -60,11 +66,10 @@ name = as.data.frame(name)
 # merged_name = merge(name, driver_name, by.x="name", by.y = "driver_id", all.x=T)
 # V(mat)$label = as.character(merged_name$driver_name)
 
-
 ## using join method
-library(plyr)
-colnames(name) = "driver_id"
-joined_name = join(name, driver_name, by="driver_id")
+# colnames(name) = "driver_id"
+# joined_name = join(name, driver_name, by="driver_id")
+
 V(mat)$label = as.character(joined_name$driver_name)
 ## ?????? ?????? ?????? ????????? ?????? (3->6)
 V(mat)[!is.na(V(mat)$label)]$size = 6
@@ -82,7 +87,7 @@ V(mat)[!is.na(V(mat)$label)]$size = 6
 
 # without label
 second_plot = plot(mat, layout=layout, vertex.size=V(mat)$size, vertex.color = V(mat)$color, 
-                   vertex.frame.color= V(mat)$frame.color, vertex.label=NA, edge.width = E(mat)$streq, 
+                   vertex.frame.color= V(mat)$frame.color, vertex.label=V(mat)$label, edge.width = E(mat)$streq, 
                    edge.color = adjustcolor("red", alpha.f = .9), add=T)
 
 
