@@ -176,5 +176,6 @@ V(mat)[!is.na(V(mat)$label)]$size = 6
 # without label
 second_plot = plot(mat, layout=layout, vertex.size=V(mat)$size, vertex.color = V(mat)$color, vertex.frame.color= V(mat)$frame.color, vertex.label=NA, edge.width = E(mat)$streq, edge.color = adjustcolor("red", alpha.f = .9), add=T)
 
+print('test')
 
 dev.off()
